@@ -1,0 +1,40 @@
+[project]
+name = "dev-template-api"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.116.0,<1.0.0",
+    "pydantic-settings>=2.10.0,<3.0.0",
+    "psycopg[binary]>=3.2.0,<4.0.0",
+    "redis>=6.2.0,<7.0.0",
+    "uvicorn[standard]>=0.35.0,<1.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.0,<1.0.0",
+    "mypy>=1.16.0,<2.0.0",
+    "pytest>=8.4.0,<9.0.0",
+    "pytest-asyncio>=1.0.0,<2.0.0",
+    "ruff>=0.12.0,<1.0.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = []
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+pythonpath = ["."]
+testpaths = ["tests"]

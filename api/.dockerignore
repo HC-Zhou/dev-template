@@ -1,0 +1,14 @@
+.env
+*.env.*
+
+# Logs
+logs
+*.log*
+
+# jetbrains
+.idea
+.mypy_cache
+.ruff_cache
+
+# venv
+.venv

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+set -x
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(dirname "$SCRIPT_DIR")"
+
+cd "$ROOT/api"
+uv run pytest
+
+cd "$ROOT/web"
+corepack pnpm test
+

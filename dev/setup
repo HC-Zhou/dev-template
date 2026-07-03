@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(dirname "$SCRIPT_DIR")"
+
+cp -n "$ROOT/api/.env.example" "$ROOT/api/.env" 2>/dev/null || true
+cp -n "$ROOT/web/.env.example" "$ROOT/web/.env.local" 2>/dev/null || true
+cp -n "$ROOT/docker/.env.example" "$ROOT/docker/.env" 2>/dev/null || true
+
+if [ -d "$ROOT/docker/envs" ]; then
+  while IFS= read -r example_file; do
+    env_file="${example_file%.example}"
+    cp -n "$example_file" "$env_file" 2>/dev/null || true
+  done < <(find "$ROOT/docker/envs" -name "*.env.example" -type f | sort)
+fi
+
+cd "$ROOT/api"
+uv sync --dev
+
+cd "$ROOT/web"
+corepack enable
+corepack pnpm install
+

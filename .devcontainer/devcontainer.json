@@ -1,0 +1,46 @@
+{
+  "name": "Python 3.12 + Next.js Fullstack",
+  "build": {
+    "context": "..",
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts",
+      "nodeGypDependencies": true
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "installDockerBuildx": true,
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+  "forwardPorts": [3000, 5001, 5432, 6379],
+  "portsAttributes": {
+    "3000": { "label": "Next.js" },
+    "5001": { "label": "FastAPI" },
+    "5432": { "label": "Postgres" },
+    "6379": { "label": "Redis" }
+  },
+  "customizations": {
+    "jetbrains": {
+      "settings": {
+        "com.intellij.database:app:DatabaseSettings.enable-local-filter-by-default": false,
+        "Git4Idea:app:Git-Application-Settings.use_credential_helper": true,
+        "com.intellij:app:HttpConfigurable.use_proxy_pac": true
+      }
+    },
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "postCreateCommand": "./.devcontainer/post_create_command.sh",
+  "postStartCommand": "./.devcontainer/post_start_command.sh"
+}
+

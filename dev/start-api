@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+set -x
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(dirname "$SCRIPT_DIR")"
+
+cd "$ROOT/api"
+uv run uvicorn app.main:app --host 0.0.0.0 --port 5001 --reload
+

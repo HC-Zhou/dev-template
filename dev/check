@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+set -x
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(dirname "$SCRIPT_DIR")"
+
+cd "$ROOT/api"
+uv run ruff check .
+uv run mypy app tests
+
+cd "$ROOT/web"
+corepack pnpm lint
+corepack pnpm type-check
+

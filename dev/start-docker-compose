@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+set -x
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(dirname "$SCRIPT_DIR")"
+
+cp -n "$ROOT/docker/.env.example" "$ROOT/docker/.env" 2>/dev/null || true
+
+cd "$ROOT/docker"
+docker compose --env-file .env -f compose.middleware.yaml -p dev-template-middleware up -d
