@@ -13,7 +13,7 @@ dev-setup: prepare-docker prepare-api prepare-web
 	@echo "Development environment is ready."
 
 prepare-docker:
-	@cp -n $(DOCKER_DIR)/.env.example $(DOCKER_DIR)/.env 2>/dev/null || true
+	@$(DOCKER_DIR)/env-sync.sh
 
 prepare-api:
 	@cp -n $(API_DIR)/.env.example $(API_DIR)/.env 2>/dev/null || true
